@@ -11,9 +11,7 @@ export const FindPokes = () => {
         img: null
     })
 
-    function handleInputChange(e){
-        setPokes(e.target.value);    
-    }
+    const [searchTerm, setSearchTerm] = useState('')
 
     function submitForm(e){
         e.preventDefault();
@@ -26,14 +24,10 @@ export const FindPokes = () => {
                 xd => 
                     {if( xd !== undefined)
                     {
-                        setTimeout(() => {
                             setapiPok({
                                 name: xd.name,
                                 img: xd.img
-                            })
-                        },400)
-                        
-    
+                            })                  
                     }else{
                         setapiPok({
                             name: null,
@@ -43,19 +37,25 @@ export const FindPokes = () => {
             )
     },[pokes])
     
-
-
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+          setPokes(searchTerm);
+        }, 500)
+        return () => clearTimeout(delayDebounceFn)
+      }, [searchTerm])
+    
     return (
         <>
         <form onSubmit={ submitForm }>
-            <input
-                placeholder="Find Pokémon"
-                type="text"
-                onChange={ handleInputChange }
-                value={ pokes }
-            />
+        <input
+        autoFocus
+        type='text'
+        autoComplete='off'
+        className='live-search-field'
+        placeholder='Search here...'
+        onChange={(e) => setSearchTerm(e.target.value)}
+        />
         </form>
-
         <h1>{apiPok.name}</h1>
         < img src={apiPok.img} alt='' />
         </>
