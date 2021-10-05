@@ -26,7 +26,8 @@ export const FindPokes = () => {
                 name: null,
                 img: null,
                 loading: true,
-                mj: 'buscando..'})
+                mj: 'buscando..'
+            });
             pokeFetch(pokes).then(
                 xd => 
                     {if( xd !== undefined)
@@ -45,7 +46,7 @@ export const FindPokes = () => {
                                 loading: false,
                                 mj: 'no existe'
                             })
-                        }, 200);
+                        }, 0.5);
                 }}
             )
     },[pokes])
@@ -59,9 +60,9 @@ export const FindPokes = () => {
     
     return (
         <>
-         <div class="row container center">
-        <form onSubmit={ submitForm } class="col s12 center-align"> 
-        <div class="input-field col s12 m4 l8"> 
+         <div className="row container center">
+        <form onSubmit={ submitForm } className="col s12 center-align"> 
+        <div className="input-field col s12 m4 l8"> 
         <input
         autoFocus
         type='text'
@@ -75,14 +76,23 @@ export const FindPokes = () => {
 
 
         
-        <div class="center">
+        <div className="center">
         <h1>{apiPok.name}</h1>
         < img src={apiPok.img} alt='' />
         </div>
 
-        <h1>{apiPok.loading ? 'Buscando' : null}</h1>
-        <h1>{apiPok.mj === 'no existe' && apiPok.loading === false ? 'No existe' : null}</h1>
-        
+        <h1>{apiPok.loading && pokes !== "" ? 'Buscando' : null}</h1>
+        <h1>{apiPok.mj === 'no existe' && apiPok.loading === false && pokes !== ""? 'No existe' : null}</h1>
+
+        <div className='rotate card'>
+        {(() => {
+        if (apiPok.loading && pokes !== "") {
+          return (
+            <img src='../img/pokeball.png' alt='' width='350' height='200'></img>
+          )
+        }})()}
+        </div>
+
         </div>
         </>
     )

@@ -12,7 +12,7 @@ export const pokeFetch = async(pokes) => {
     return bichito;
     }
     catch(e){
-        console.log(e)
+        //console.log(e)
     }
 }
 
