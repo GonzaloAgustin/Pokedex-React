@@ -1,12 +1,7 @@
-import React from 'react'
-
-
-export const FetchPokes = ({pokes, setPokes}) => {
-
-const pokeFetch = async(pokes) => {
-
-    //const miPoke = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokes}`);
-    const miPoke = await fetch(`https://pokeapi.co/api/v2/pokemon/${encodeURI(pokes)}`);
+export const pokeFetch = async(pokes) => { 
+    try{
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokes}`
+    const miPoke = await fetch( url );
     const data = await miPoke.json();
     console.log(data);
 
@@ -14,19 +9,10 @@ const pokeFetch = async(pokes) => {
         name: data.name,
         img: data.sprites.other.dream_world.front_default
     }
-
-    console.log(bichito);
-    
     return bichito;
+    }
+    catch(e){
+        console.log(e)
+    }
 }
 
-const bichito = pokeFetch();
-
-
-
-    return (
-        <div>
-            <h1>{bichito}</h1>
-        </div>
-    )
-}

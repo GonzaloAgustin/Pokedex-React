@@ -1,20 +1,49 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { FetchPokes } from './FetchPokes';
+import { pokeFetch } from './FetchPokes';
 
 export const FindPokes = () => {
 
-    const [pokes, setPokes] = useState([])
+    const [pokes, setPokes] = useState('')
+
+    const [apiPok, setapiPok] = useState({
+        name: null,
+        img: null
+    })
 
     function handleInputChange(e){
-        setPokes(e.target.value );
+        setPokes(e.target.value);    
     }
 
     function submitForm(e){
         e.preventDefault();
         setPokes(pokes);
-        setPokes( '' );
+        setPokes('');
     }
+    
+    useEffect(() => {
+            pokeFetch(pokes).then(
+                xd => 
+                    {if( xd !== undefined)
+                    {
+                        setTimeout(() => {
+                            setapiPok({
+                                name: xd.name,
+                                img: xd.img
+                            })
+                        },400)
+                        
+    
+                    }else{
+                        setapiPok({
+                            name: null,
+                            img: null
+                        })
+                }}
+            )
+    },[pokes])
+    
+
 
     return (
         <>
@@ -27,7 +56,8 @@ export const FindPokes = () => {
             />
         </form>
 
-        <FetchPokes pokes={ pokes } setPokes={ setPokes }/>
+        <h1>{apiPok.name}</h1>
+        < img src={apiPok.img} alt='' />
         </>
     )
 }
