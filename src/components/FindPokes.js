@@ -61,8 +61,8 @@ export const FindPokes = () => {
     return (
         <>
          <div className="row container center">
-        <form onSubmit={ submitForm } className="col s12 center-align"> 
-        <div className="input-field col s12 m4 l8"> 
+        <form onSubmit={ submitForm } className="col s12 center-align xd"> 
+        <div className="input-field col s12 m4 l6 center"> 
         <input
         autoFocus
         type='text'
@@ -74,27 +74,24 @@ export const FindPokes = () => {
         </div>
         </form>
 
-
-        
         <div className="center">
         <h1>{apiPok.name}</h1>
         < img src={apiPok.img} alt='' />
-        </div>
+        
 
         <h1>{apiPok.loading && pokes !== "" ? 'Buscando' : null}</h1>
         <h1>{apiPok.mj === 'no existe' && apiPok.loading === false && pokes !== ""? 'No existe' : null}</h1>
 
-        <div className='rotate card'>
+        <div className='rotate'>
         {(() => {
         if (apiPok.loading && pokes !== "") {
           return (
-            <img src='../img/pokeball.png' alt='' width='350' height='200'></img>
+            <img src={'../img/pokeball.png'} alt='' width='100' height='100'></img>
           )
         }})()}
         </div>
-
+        </div>
         </div>
         </>
     )
-    
 }
