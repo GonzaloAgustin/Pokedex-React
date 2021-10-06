@@ -74,7 +74,7 @@ export const FindPokes = () => {
         </div>
         </form>
 
-        <div className="center">
+        <div className="center agregopadding">
         <h1>{apiPok.name}</h1>
         < img src={apiPok.img} alt='' />
         
